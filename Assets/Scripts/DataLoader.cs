@@ -6,19 +6,16 @@ using UnityEngine;
 
 public class DataLoader : MonoBehaviour
 {
-    private string json;
+    private string json;                // Path to json data
 
     // Start is called before the first frame update
     void Start()
     {
         json = File.ReadAllText(Application.dataPath + "/Data/countries_data.geo.json");
-        InitializeCountries(json);
     }
 
-    private void InitializeCountries(string json)
+    public Root GetData(string json)
     {
-        Root countries = JsonConvert.DeserializeObject<Root>(json);
-
-        Debug.Log(countries.features[0]);
+        return JsonConvert.DeserializeObject<Root>(json);
     }
 }
