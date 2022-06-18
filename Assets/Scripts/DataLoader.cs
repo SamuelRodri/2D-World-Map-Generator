@@ -14,7 +14,7 @@ public class DataLoader : MonoBehaviour
         json = File.ReadAllText(Application.dataPath + "/Data/countries_data.geo.json");
     }
 
-    public Root GetData(string json)
+    public Root GetData()
     {
         return JsonConvert.DeserializeObject<Root>(json);
     }
