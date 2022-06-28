@@ -11,7 +11,7 @@ public class DataLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        json = File.ReadAllText(Application.dataPath + "/Data/countries_data.geo.json");
+        json = File.ReadAllText(Application.dataPath + "/Data/custom.geo.json");
     }
 
     public Root GetData()

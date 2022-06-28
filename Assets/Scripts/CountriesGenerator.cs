@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CountriesGenerator : MonoBehaviour
 {
     public DataLoader loader;
+    public Material material;
 
     private Root root;
 
-    private GameObject countryGameObject;
-    private GameObject countries; 
+	private GameObject countries;				// Father of all the countries
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,7 @@ public class CountriesGenerator : MonoBehaviour
         root = loader.GetData();
 
         countries = new GameObject("Countries");
-        
+
         GenerateCountries();
     }
 
@@ -25,16 +27,41 @@ public class CountriesGenerator : MonoBehaviour
     {
         foreach(Feature feature in root.features)
         {
-            countryGameObject = new GameObject(feature.properties.admin);
-            countryGameObject.AddComponent<Country>();
-            CreateCountry(countryGameObject, feature.properties.admin, feature.properties.iso_a3);
+            GameObject countryGameObject = CreateCountry(feature);
             countryGameObject.transform.parent = countries.transform;
         }
     }
 
-    private void CreateCountry(GameObject country, string admin, string iso)
+    private GameObject CreateCountry(Feature feature)
     {
-        country.GetComponent<Country>().admin = admin;
-        country.GetComponent<Country>().ISO_A3 = iso;
+        GameObject country = new GameObject(feature.properties.admin);
+        country.AddComponent<Country>();
+
+        // Adding data to the country
+		country.GetComponent<Country>().admin = feature.properties.admin;
+        country.GetComponent<Country>().ISO_A3 = feature.properties.iso_a3;
+		country.GetComponent<Country>().polygon = PolygonFactory.CreatePolygon(feature.geometry);
+
+        if (feature.geometry.type.Equals("MultiPolygon"))
+        {
+            return country;
+        }
+
+        DrawCountry(country.GetComponent<Country>());
+
+        return country;
     }
+
+    // Generate a mesh and a collider for a country
+    private void DrawCountry(Country country)
+    {
+        // Generating mesh
+        Mesh mesh = MeshGenerator.CreateMesh(country.polygon);
+        country.GetComponent<MeshRenderer>().material = material;
+        country.GetComponent<MeshFilter>().mesh = mesh;
+
+        // Generating collider
+
+    }
+
 }

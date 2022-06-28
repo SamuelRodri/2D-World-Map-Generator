@@ -10,7 +10,8 @@ public class Feature
 public class Geometry
 {
     public string type { get; set; }
-    public List<List<List<object>>> coordinates { get; set; }
+    public List<List<List<float>>>? coordinates { get; set; } = null;
+    public List<List<List<List<float>>>> Mcoordinates { get; set; }
 }
 
 public class Properties
