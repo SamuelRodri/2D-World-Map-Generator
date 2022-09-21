@@ -324,7 +324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loader: {fileID: 266720939}
   meshGenerator: {fileID: 702976462}
-  material: {fileID: 2100000, guid: 4ecea7975327a934b8eb7bebcb1d6060, type: 2}
 --- !u!4 &1520169956
 Transform:
   m_ObjectHideFlags: 0
