@@ -1,6 +1,4 @@
-using Generator.Polygons;
-using System.Collections;
-using System.Collections.Generic;
+using TriangleNet.Geometry;
 using UnityEngine;
 
 namespace Generator.Data
@@ -11,9 +9,9 @@ namespace Generator.Data
     {
         public string admin;
         public string ISO_A3;
-        public IPolygon<Vector3> polygon;
+        public Polygon polygon;
 
-        public Country(string admin, string iso, IPolygon<Vector3> polygon)
+        public Country(string admin, string iso, Polygon polygon)
         {
             this.admin = admin;
             this.ISO_A3 = iso;
